@@ -44,8 +44,8 @@ var rpcURL = url.URL{
 func (rpc *rpcFormat) justifyData(methodName string) {
 	rpc.Method = methodName
 	rpc.ID = "1"
-	for _, p := range rpc.Params {
-		p.Count = 20
+	for idx := range rpc.Params {
+		rpc.Params[idx].Count = 20
 	}
 }
 
