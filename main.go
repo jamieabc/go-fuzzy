@@ -5,29 +5,13 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
-	"local/random"
 	"net/http"
 	"net/url"
 	"strings"
 	"time"
+
+	"./protocol"
 )
-
-type dataGeneration interface {
-	justifyData(methodName string)
-	genRandomData()
-	sampleData()
-}
-
-type rpcFormat struct {
-	ID     string             `json:"id,omitempty"`
-	Method string             `json:"method,omitempty"`
-	Params []provenanceFormat `json:"params,omitempty"`
-}
-
-type provenanceFormat struct {
-	Count uint   `json:"count,omitempty"`
-	TxID  string `json:"txId,omitempty"`
-}
 
 const (
 	scheme  string = "https"
@@ -41,26 +25,12 @@ var rpcURL = url.URL{
 	Path:   rpcPath,
 }
 
-func (rpc *rpcFormat) justifyData(methodName string) {
-	rpc.Method = methodName
-	rpc.ID = "1"
-	for idx := range rpc.Params {
-		rpc.Params[idx].Count = 20
-	}
-}
-
-// genRandomData generates random data fits specific interface
-func (rpc *rpcFormat) genRandomData() {
-	r := random.New()
-	r.Fuzz(rpc)
-}
-
-func generateJSON(params dataGeneration, methodName string) (io.Reader, error) {
-	params.genRandomData()
-	params.justifyData(methodName)
+func generateJSON(params protocol.DataGeneration) (io.Reader, error) {
+	params.GenRandomData()
+	params.JustifyData()
 
 	// keep for test
-	// params.sampleData()
+	// params.SampleData()
 
 	paramsJSON, err := json.Marshal(params)
 	if err != nil {
@@ -69,18 +39,6 @@ func generateJSON(params dataGeneration, methodName string) (io.Reader, error) {
 	paramsStr := string(paramsJSON)
 	fmt.Println("post body: ", paramsStr)
 	return strings.NewReader(paramsStr), nil
-}
-
-// sampleData generates correct data
-func (rpc *rpcFormat) sampleData() {
-	rpc.ID = "1"
-	rpc.Method = "Bitmark.Provenance"
-	rpc.Params = []provenanceFormat{
-		provenanceFormat{
-			Count: 20,
-			TxID:  "2dc8770718b01f0205ad991bfb4c052f02677cff60e65d596e890cb6ed82c861",
-		},
-	}
 }
 
 // send http request
@@ -105,10 +63,13 @@ func sendRequest(reqBody io.Reader) (*http.Response, error) {
 
 func main() {
 	// choose format
-	params := &rpcFormat{}
+	// params := &protocol.ProvenanceRpc{}
+	// params := protocol.New(protocol.TransactionStatusType)
+	// params := protocol.New(protocol.NodeInfoType)
+	params := protocol.New(protocol.BitmarksProofType)
 
 	for true {
-		body, err := generateJSON(params, "Bitmark.Provenance")
+		body, err := generateJSON(params)
 
 		if nil != err {
 			fmt.Println("Error message: ", err)
