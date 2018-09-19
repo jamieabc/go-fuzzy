@@ -66,7 +66,8 @@ func main() {
 	// params := &protocol.ProvenanceRpc{}
 	// params := protocol.New(protocol.TransactionStatusType)
 	// params := protocol.New(protocol.NodeInfoType)
-	params := protocol.New(protocol.BitmarksProofType)
+	// params := protocol.New(protocol.BitmarksProofType)
+	params := protocol.New(protocol.AssetsGetType)
 
 	for true {
 		body, err := generateJSON(params)

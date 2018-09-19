@@ -9,16 +9,12 @@ type AssetsGetRpc struct {
 }
 
 type AssetsGet struct {
-	Count uint   `json:"count,omitempty"`
-	TxID  string `json:"txId,omitempty"`
+	FingerPrints []string `json:"fingerprints"`
 }
 
-func (rpc *AssetsGetRpc) JustifyData(methodName string) {
-	rpc.Method = methodName
+func (rpc *AssetsGetRpc) JustifyData() {
+	rpc.Method = "Assets.Get"
 	rpc.ID = "1"
-	for idx := range rpc.Params {
-		rpc.Params[idx].Count = 20
-	}
 }
 
 // genRandomData generates random data fits specific interface
@@ -30,11 +26,12 @@ func (rpc *AssetsGetRpc) GenRandomData() {
 // sampleData generates correct data
 func (rpc *AssetsGetRpc) SampleData() {
 	rpc.ID = "1"
-	rpc.Method = "Bitmark.Provenance"
+	rpc.Method = "Assets.Get"
 	rpc.Params = []AssetsGet{
 		AssetsGet{
-			Count: 20,
-			TxID:  "2dc8770718b01f0205ad991bfb4c052f02677cff60e65d596e890cb6ed82c861",
+			FingerPrints: []string{
+				"015b9c9fb3e993bf64500977844104fc0b70ef5ca99141e9f56e2e837ce668fbe787643c34a0d51a32a82408eb36a6e93f7badbc5af50de29d9401b5affe564440",
+				"e12571eff187f9a88e8a516c639fc51ef6ff9472fd39fd326cec33e266ae9ce74863f428f1e153f724b19b4b1d26df586f1ea3b794a5ca617b37129d315e3918"},
 		},
 	}
 }
