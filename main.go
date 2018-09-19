@@ -67,7 +67,8 @@ func main() {
 	// params := protocol.New(protocol.TransactionStatusType)
 	// params := protocol.New(protocol.NodeInfoType)
 	// params := protocol.New(protocol.BitmarksProofType)
-	params := protocol.New(protocol.AssetsGetType)
+	// params := protocol.New(protocol.AssetsGetType)
+	params := protocol.New(protocol.BitmarksCreateType)
 
 	for true {
 		body, err := generateJSON(params)

@@ -33,6 +33,7 @@ func New(structName StructTypes) DataGeneration {
 		rpc = &BitmarkProvenanceRpc{}
 	case BitmarkTransferType:
 	case BitmarksCreateType:
+		rpc = &BitmarksCreateRpc{}
 	case BitmarksProofType:
 		rpc = &BitmarksProofRpc{}
 	case BlockOwnerTransferType:
