@@ -2,6 +2,10 @@ package protocol
 
 import "local/random"
 
+const (
+	assetsGetRPCMethod string = "Assets.Get"
+)
+
 type AssetsGetRpc struct {
 	ID     string      `json:"id,omitempty"`
 	Method string      `json:"method,omitempty"`
@@ -13,7 +17,7 @@ type AssetsGet struct {
 }
 
 func (rpc *AssetsGetRpc) JustifyData() {
-	rpc.Method = "Assets.Get"
+	rpc.Method = assetsGetRPCMethod
 	rpc.ID = "1"
 }
 
@@ -26,7 +30,7 @@ func (rpc *AssetsGetRpc) GenRandomData() {
 // sampleData generates correct data
 func (rpc *AssetsGetRpc) SampleData() {
 	rpc.ID = "1"
-	rpc.Method = "Assets.Get"
+	rpc.Method = assetsGetRPCMethod
 	rpc.Params = []AssetsGet{
 		AssetsGet{
 			FingerPrints: []string{

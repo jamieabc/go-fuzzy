@@ -2,6 +2,10 @@ package protocol
 
 import "local/random"
 
+const (
+	nodeInfoRPCMethod string = "Node.Info"
+)
+
 type NodeInfoRpc struct {
 	ID     string     `json:"id,omitempty"`
 	Method string     `json:"method,omitempty"`
@@ -11,7 +15,7 @@ type NodeInfoRpc struct {
 type NodeInfo struct{}
 
 func (rpc *NodeInfoRpc) JustifyData() {
-	rpc.Method = "Node.Info"
+	rpc.Method = nodeInfoRPCMethod
 	rpc.ID = "1"
 }
 
@@ -24,6 +28,6 @@ func (rpc *NodeInfoRpc) GenRandomData() {
 // sampleData generates correct data
 func (rpc *NodeInfoRpc) SampleData() {
 	rpc.ID = "1"
-	rpc.Method = "Node.Info"
+	rpc.Method = nodeInfoRPCMethod
 	rpc.Params = []NodeInfo{}
 }

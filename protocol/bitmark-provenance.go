@@ -2,6 +2,10 @@ package protocol
 
 import "local/random"
 
+const (
+	bitmarkProvenanceRPCMethod string = "Bitmark.Provenance"
+)
+
 type BitmarkProvenanceRpc struct {
 	ID     string       `json:"id,omitempty"`
 	Method string       `json:"method,omitempty"`
@@ -14,7 +18,7 @@ type Provenance struct {
 }
 
 func (rpc *BitmarkProvenanceRpc) JustifyData() {
-	rpc.Method = "Bitmark.Provenance"
+	rpc.Method = bitmarkProvenanceRPCMethod
 	rpc.ID = "1"
 	for idx := range rpc.Params {
 		rpc.Params[idx].Count = 20
@@ -30,7 +34,7 @@ func (rpc *BitmarkProvenanceRpc) GenRandomData() {
 // sampleData generates correct data
 func (rpc *BitmarkProvenanceRpc) SampleData() {
 	rpc.ID = "1"
-	rpc.Method = "Bitmark.Provenance"
+	rpc.Method = bitmarkProvenanceRPCMethod
 	rpc.Params = []Provenance{
 		Provenance{
 			Count: 20,

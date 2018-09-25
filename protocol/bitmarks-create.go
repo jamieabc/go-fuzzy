@@ -4,6 +4,10 @@ import (
 	"local/random"
 )
 
+const (
+	bitmarksCreateRPCMethod string = "Bitmarks.Create"
+)
+
 type BitmarksCreateRpc struct {
 	ID     string           `json:"id,omitempty"`
 	Method string           `json:"method,omitempty"`
@@ -34,7 +38,7 @@ type IssueData struct {
 }
 
 func (rpc *BitmarksCreateRpc) JustifyData() {
-	rpc.Method = "Bitmarks.Create"
+	rpc.Method = bitmarksCreateRPCMethod
 	rpc.ID = "1"
 }
 
@@ -47,7 +51,7 @@ func (rpc *BitmarksCreateRpc) GenRandomData() {
 // sampleData generates correct data
 func (rpc *BitmarksCreateRpc) SampleData() {
 	rpc.ID = "1"
-	rpc.Method = "Bitmarks.Proof"
+	rpc.Method = bitmarksCreateRPCMethod
 	rpc.Params = []BitmarksCreate{
 		BitmarksCreate{
 			Assets: []AssetData{

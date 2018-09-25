@@ -2,6 +2,10 @@ package protocol
 
 import "local/random"
 
+const (
+	bitmarksProofRPCMethod string = "Bitmarks.Proof"
+)
+
 type BitmarksProofRpc struct {
 	ID     string          `json:"id,omitempty"`
 	Method string          `json:"method,omitempty"`
@@ -14,7 +18,7 @@ type BitmarksProof struct {
 }
 
 func (rpc *BitmarksProofRpc) JustifyData() {
-	rpc.Method = "Bitmarks.Proof"
+	rpc.Method = bitmarksProofRPCMethod
 	rpc.ID = "1"
 }
 
@@ -27,7 +31,7 @@ func (rpc *BitmarksProofRpc) GenRandomData() {
 // sampleData generates correct data
 func (rpc *BitmarksProofRpc) SampleData() {
 	rpc.ID = "1"
-	rpc.Method = "Bitmarks.Proof"
+	rpc.Method = bitmarksProofRPCMethod
 	rpc.Params = []BitmarksProof{
 		BitmarksProof{
 			PayId: "e219ffe8021190ea472baa147b05b2fbfb79818ab6eb267a037b7744f3b89a5966723180e1367ce7e172369d7432a658",
