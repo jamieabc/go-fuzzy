@@ -1,5 +1,7 @@
 package protocol
 
+import "math/rand"
+
 // DataGeneration is an interface that generate data
 type DataGeneration interface {
 	JustifyData()
@@ -12,7 +14,8 @@ type StructTypes int
 
 // lists all currently bitmarkd supported types
 const (
-	AssetsGetType StructTypes = iota
+	RandomType StructTypes = iota
+	AssetsGetType
 	BitmarkProvenanceType
 	BitmarkTransferType
 	BitmarksCreateType
@@ -22,11 +25,19 @@ const (
 	TransactionStatusType
 )
 
-// create struct by StructTypes
+// New create struct by StructTypes
 func New(structName StructTypes) DataGeneration {
 	var rpc DataGeneration
+	var name StructTypes
 
-	switch structName {
+	// if given nothing, use random one
+	if structName == RandomType {
+		name = StructTypes(rand.Intn(int(TransactionStatusType)))
+	} else {
+		name = structName
+	}
+
+	switch name {
 	case AssetsGetType:
 		rpc = &AssetsGetRpc{}
 	case BitmarkProvenanceType:

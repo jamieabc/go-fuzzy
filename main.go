@@ -62,15 +62,9 @@ func sendRequest(reqBody io.Reader) (*http.Response, error) {
 }
 
 func main() {
-	// choose format
-	// params := &protocol.ProvenanceRpc{}
-	// params := protocol.New(protocol.TransactionStatusType)
-	// params := protocol.New(protocol.NodeInfoType)
-	// params := protocol.New(protocol.BitmarksProofType)
+	// choose protocol
 	// params := protocol.New(protocol.AssetsGetType)
-	// params := protocol.New(protocol.BitmarksCreateType)
-	// params := protocol.New(protocol.BitmarkTransferType)
-	params := protocol.New(protocol.BlockOwnerTransferType)
+	params := protocol.New(protocol.RandomType)
 
 	for true {
 		body, err := generateJSON(params)
