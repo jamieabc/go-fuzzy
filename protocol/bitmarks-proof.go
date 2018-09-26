@@ -1,15 +1,15 @@
 package protocol
 
-import "local/random"
+import fuzz "github.com/jamieabc/gofuzz"
 
 const (
 	bitmarksProofRPCMethod string = "Bitmarks.Proof"
 )
 
 type BitmarksProofRpc struct {
-	ID     string          `json:"id,omitempty"`
-	Method string          `json:"method,omitempty"`
-	Params []BitmarksProof `json:"params,omitempty"`
+	ID     string          `json:"id"`
+	Method string          `json:"method"`
+	Params []BitmarksProof `json:"params"`
 }
 
 type BitmarksProof struct {
@@ -22,13 +22,13 @@ func (rpc *BitmarksProofRpc) JustifyData() {
 	rpc.ID = "1"
 }
 
-// genRandomData generates random data fits specific interface
+// GenRandomData generates random data fits specific interface
 func (rpc *BitmarksProofRpc) GenRandomData() {
-	r := random.New()
-	r.Fuzz(rpc)
+	f := fuzz.New()
+	f.Fuzz(rpc)
 }
 
-// sampleData generates correct data
+// SampleData generates correct data
 func (rpc *BitmarksProofRpc) SampleData() {
 	rpc.ID = "1"
 	rpc.Method = bitmarksProofRPCMethod

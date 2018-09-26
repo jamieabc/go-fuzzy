@@ -1,15 +1,15 @@
 package protocol
 
-import "local/random"
+import fuzz "github.com/jamieabc/gofuzz"
 
 const (
 	nodeInfoRPCMethod string = "Node.Info"
 )
 
 type NodeInfoRpc struct {
-	ID     string     `json:"id,omitempty"`
-	Method string     `json:"method,omitempty"`
-	Params []NodeInfo `json:"params,omitempty"`
+	ID     string     `json:"id"`
+	Method string     `json:"method"`
+	Params []NodeInfo `json:"params"`
 }
 
 type NodeInfo struct{}
@@ -19,13 +19,13 @@ func (rpc *NodeInfoRpc) JustifyData() {
 	rpc.ID = "1"
 }
 
-// genRandomData generates random data fits specific interface
+// GenRandomData generates random data fits specific interface
 func (rpc *NodeInfoRpc) GenRandomData() {
-	r := random.New()
-	r.Fuzz(rpc)
+	f := fuzz.New()
+	f.Fuzz(rpc)
 }
 
-// sampleData generates correct data
+// SampleData generates correct data
 func (rpc *NodeInfoRpc) SampleData() {
 	rpc.ID = "1"
 	rpc.Method = nodeInfoRPCMethod

@@ -1,17 +1,15 @@
 package protocol
 
-import (
-	"local/random"
-)
+import fuzz "github.com/jamieabc/gofuzz"
 
 const (
 	blockownerTransferRPCMethod string = "BlockOwner.Transfer"
 )
 
 type BlockOwnerTransferRpc struct {
-	ID     string               `json:"id,omitempty"`
-	Method string               `json:"method,omitempty"`
-	Params []BlockOwnerTransfer `json:"params,omitempty"`
+	ID     string               `json:"id"`
+	Method string               `json:"method"`
+	Params []BlockOwnerTransfer `json:"params"`
 }
 
 type Currency uint64
@@ -33,13 +31,13 @@ func (rpc *BlockOwnerTransferRpc) JustifyData() {
 	rpc.ID = "1"
 }
 
-// genRandomData generates random data fits specific interface
+// GenRandomData generates random data fits specific interface
 func (rpc *BlockOwnerTransferRpc) GenRandomData() {
-	r := random.New()
-	r.Fuzz(rpc)
+	f := fuzz.New()
+	f.Fuzz(rpc)
 }
 
-// sampleData generates correct data
+// SampleData generates correct data
 func (rpc *BlockOwnerTransferRpc) SampleData() {
 	rpc.ID = "1"
 	rpc.Method = blockownerTransferRPCMethod

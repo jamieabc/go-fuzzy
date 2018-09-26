@@ -1,15 +1,15 @@
 package protocol
 
-import "local/random"
+import "github.com/jamieabc/gofuzz"
 
 const (
 	assetsGetRPCMethod string = "Assets.Get"
 )
 
 type AssetsGetRpc struct {
-	ID     string      `json:"id,omitempty"`
-	Method string      `json:"method,omitempty"`
-	Params []AssetsGet `json:"params,omitempty"`
+	ID     string      `json:"id"`
+	Method string      `json:"method"`
+	Params []AssetsGet `json:"params"`
 }
 
 type AssetsGet struct {
@@ -21,13 +21,13 @@ func (rpc *AssetsGetRpc) JustifyData() {
 	rpc.ID = "1"
 }
 
-// genRandomData generates random data fits specific interface
+// GenRandomData generates random data fits specific interface
 func (rpc *AssetsGetRpc) GenRandomData() {
-	r := random.New()
-	r.Fuzz(rpc)
+	f := fuzz.New()
+	f.Fuzz(rpc)
 }
 
-// sampleData generates correct data
+// SampleData generates correct data
 func (rpc *AssetsGetRpc) SampleData() {
 	rpc.ID = "1"
 	rpc.Method = assetsGetRPCMethod

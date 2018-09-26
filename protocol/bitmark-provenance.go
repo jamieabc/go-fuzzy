@@ -1,20 +1,20 @@
 package protocol
 
-import "local/random"
+import fuzz "github.com/jamieabc/gofuzz"
 
 const (
 	bitmarkProvenanceRPCMethod string = "Bitmark.Provenance"
 )
 
 type BitmarkProvenanceRpc struct {
-	ID     string       `json:"id,omitempty"`
-	Method string       `json:"method,omitempty"`
-	Params []Provenance `json:"params,omitempty"`
+	ID     string       `json:"id"`
+	Method string       `json:"method"`
+	Params []Provenance `json:"params"`
 }
 
 type Provenance struct {
-	Count uint   `json:"count,omitempty"`
-	TxID  string `json:"txId,omitempty"`
+	Count uint   `json:"count"`
+	TxID  string `json:"txId"`
 }
 
 func (rpc *BitmarkProvenanceRpc) JustifyData() {
@@ -25,13 +25,13 @@ func (rpc *BitmarkProvenanceRpc) JustifyData() {
 	}
 }
 
-// genRandomData generates random data fits specific interface
+// GenRandomData generates random data fits specific interface
 func (rpc *BitmarkProvenanceRpc) GenRandomData() {
-	r := random.New()
-	r.Fuzz(rpc)
+	f := fuzz.New()
+	f.Fuzz(rpc)
 }
 
-// sampleData generates correct data
+// SampleData generates correct data
 func (rpc *BitmarkProvenanceRpc) SampleData() {
 	rpc.ID = "1"
 	rpc.Method = bitmarkProvenanceRPCMethod

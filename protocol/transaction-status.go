@@ -1,19 +1,19 @@
 package protocol
 
-import "local/random"
+import fuzz "github.com/jamieabc/gofuzz"
 
 const (
 	transactionStatusRPCMethod string = "Transaction.Status"
 )
 
 type TransactionStatusRpc struct {
-	ID     string              `json:"id,omitempty"`
-	Method string              `json:"method,omitempty"`
-	Params []TransactionStatus `json:"params,omitempty"`
+	ID     string              `json:"id"`
+	Method string              `json:"method"`
+	Params []TransactionStatus `json:"params"`
 }
 
 type TransactionStatus struct {
-	TxID string `json:"TxId,omitempty"`
+	TxID string `json:"TxId"`
 }
 
 func (rpc *TransactionStatusRpc) JustifyData() {
@@ -21,13 +21,13 @@ func (rpc *TransactionStatusRpc) JustifyData() {
 	rpc.ID = "1"
 }
 
-// genRandomData generates random data fits specific interface
+// GenRandomData generates random data fits specific interface
 func (rpc *TransactionStatusRpc) GenRandomData() {
-	r := random.New()
-	r.Fuzz(rpc)
+	f := fuzz.New()
+	f.Fuzz(rpc)
 }
 
-// sampleData generates correct data
+// SampleData generates correct data
 func (rpc *TransactionStatusRpc) SampleData() {
 	rpc.ID = "1"
 	rpc.Method = transactionStatusRPCMethod

@@ -1,17 +1,15 @@
 package protocol
 
-import (
-	"local/random"
-)
+import fuzz "github.com/jamieabc/gofuzz"
 
 const (
 	bitmarkTransferRPCMethod string = "Bitmark.Transfer"
 )
 
 type BitmarkTransferRpc struct {
-	ID     string            `json:"id,omitempty"`
-	Method string            `json:"method,omitempty"`
-	Params []BitmarkTransfer `json:"params,omitempty"`
+	ID     string            `json:"id"`
+	Method string            `json:"method"`
+	Params []BitmarkTransfer `json:"params"`
 }
 
 type BitmarkTransfer struct {
@@ -27,13 +25,13 @@ func (rpc *BitmarkTransferRpc) JustifyData() {
 	rpc.ID = "1"
 }
 
-// genRandomData generates random data fits specific interface
+// GenRandomData generates random data fits specific interface
 func (rpc *BitmarkTransferRpc) GenRandomData() {
-	r := random.New()
-	r.Fuzz(rpc)
+	f := fuzz.New()
+	f.Fuzz(rpc)
 }
 
-// sampleData generates correct data
+// SampleData generates correct data
 func (rpc *BitmarkTransferRpc) SampleData() {
 	rpc.ID = "1"
 	rpc.Method = bitmarkTransferRPCMethod
