@@ -14,8 +14,7 @@ type StructTypes int
 
 // lists all currently bitmarkd supported types
 const (
-	RandomType StructTypes = iota
-	AssetsGetType
+	AssetsGetType StructTypes = iota
 	BitmarkProvenanceType
 	BitmarkTransferType
 	BitmarksCreateType
@@ -23,6 +22,7 @@ const (
 	BlockOwnerTransferType
 	NodeInfoType
 	TransactionStatusType
+	RandomType
 )
 
 // New create struct by StructTypes
@@ -32,7 +32,7 @@ func New(structName StructTypes) DataGeneration {
 
 	// if given nothing, use random one
 	if structName == RandomType {
-		name = StructTypes(rand.Intn(int(TransactionStatusType)))
+		name = StructTypes(rand.Intn(int(RandomType)))
 	} else {
 		name = structName
 	}

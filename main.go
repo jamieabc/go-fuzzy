@@ -62,11 +62,11 @@ func sendRequest(reqBody io.Reader) (*http.Response, error) {
 }
 
 func main() {
-	// choose protocol
-	// params := protocol.New(protocol.AssetsGetType)
-	params := protocol.New(protocol.RandomType)
-
 	for true {
+		// choose protocol
+		// params := protocol.New(protocol.AssetsGetType)
+		params := protocol.New(protocol.RandomType)
+
 		body, err := generateJSON(params)
 
 		if nil != err {
